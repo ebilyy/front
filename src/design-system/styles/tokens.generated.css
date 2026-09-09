@@ -1,0 +1,288 @@
+/**
+ * GENERATED FILE — do not edit by hand.
+ * Source: src/design-system/tokens/*.ts
+ * Regenerate: npm run tokens:build
+ */
+
+:root {
+  /* Primitive palette — prefer the semantic tokens below. */
+  --ds-color-neutral-0: #ffffff;
+  --ds-color-neutral-50: #f9fafb;
+  --ds-color-neutral-100: #f3f4f7;
+  --ds-color-neutral-200: #e4e7ec;
+  --ds-color-neutral-300: #cdd2da;
+  --ds-color-neutral-400: #98a0ae;
+  --ds-color-neutral-500: #6d7788;
+  --ds-color-neutral-600: #555e6d;
+  --ds-color-neutral-700: #3e4551;
+  --ds-color-neutral-800: #2c313a;
+  --ds-color-neutral-900: #1b1e23;
+  --ds-color-neutral-950: #121417;
+  --ds-color-neutral-1000: #000000;
+  --ds-color-accent-50: #f0f6ff;
+  --ds-color-accent-100: #dce9fe;
+  --ds-color-accent-200: #bad4fc;
+  --ds-color-accent-300: #8bb5f9;
+  --ds-color-accent-400: #5c96f5;
+  --ds-color-accent-500: #3179ed;
+  --ds-color-accent-600: #1b64da;
+  --ds-color-accent-700: #1d55af;
+  --ds-color-accent-800: #1c4587;
+  --ds-color-accent-900: #183562;
+  --ds-color-accent-950: #102341;
+  --ds-color-success-50: #edfdf5;
+  --ds-color-success-100: #d4f7e7;
+  --ds-color-success-200: #aaeece;
+  --ds-color-success-300: #74dcac;
+  --ds-color-success-400: #3ecc89;
+  --ds-color-success-500: #27a56a;
+  --ds-color-success-600: #1c8755;
+  --ds-color-success-700: #156f45;
+  --ds-color-success-800: #105635;
+  --ds-color-success-900: #0d3f28;
+  --ds-color-success-950: #092a1b;
+  --ds-color-warning-50: #fef6e6;
+  --ds-color-warning-100: #fde8c4;
+  --ds-color-warning-200: #fcd592;
+  --ds-color-warning-300: #fabe57;
+  --ds-color-warning-400: #f8ab25;
+  --ds-color-warning-500: #e6950a;
+  --ds-color-warning-600: #bd7b0a;
+  --ds-color-warning-700: #93610b;
+  --ds-color-warning-800: #744e0b;
+  --ds-color-warning-900: #563b0b;
+  --ds-color-warning-950: #362507;
+  --ds-color-danger-50: #fef0f1;
+  --ds-color-danger-100: #fddde0;
+  --ds-color-danger-200: #fabdc1;
+  --ds-color-danger-300: #f58e95;
+  --ds-color-danger-400: #ee636c;
+  --ds-color-danger-500: #e13743;
+  --ds-color-danger-600: #c7232e;
+  --ds-color-danger-700: #a31f28;
+  --ds-color-danger-800: #7d1c22;
+  --ds-color-danger-900: #5e171c;
+  --ds-color-danger-950: #3d0f12;
+
+  /* Spacing — 4px grid */
+  --ds-space-0: 0px;
+  --ds-space-1: 4px;
+  --ds-space-2: 8px;
+  --ds-space-3: 12px;
+  --ds-space-4: 16px;
+  --ds-space-5: 20px;
+  --ds-space-6: 24px;
+  --ds-space-8: 32px;
+  --ds-space-10: 40px;
+  --ds-space-12: 48px;
+  --ds-space-16: 64px;
+  --ds-space-20: 80px;
+  --ds-space-24: 96px;
+  --ds-space-0-5: 2px;
+  --ds-space-1-5: 6px;
+
+  /* Radius */
+  --ds-radius-none: 0px;
+  --ds-radius-sm: 4px;
+  --ds-radius-md: 6px;
+  --ds-radius-lg: 8px;
+  --ds-radius-xl: 12px;
+  --ds-radius-2xl: 16px;
+  --ds-radius-full: 9999px;
+
+  /* Typography */
+  --ds-font-sans:
+    'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial,
+    sans-serif;
+  --ds-font-mono:
+    'JetBrains Mono', ui-monospace, SFMono-Regular, Menlo, Consolas, 'Liberation Mono', monospace;
+  --ds-font-size-2xs: 11px;
+  --ds-line-height-2xs: 16px;
+  --ds-font-size-xs: 12px;
+  --ds-line-height-xs: 16px;
+  --ds-font-size-sm: 13px;
+  --ds-line-height-sm: 20px;
+  --ds-font-size-base: 14px;
+  --ds-line-height-base: 20px;
+  --ds-font-size-md: 15px;
+  --ds-line-height-md: 24px;
+  --ds-font-size-lg: 16px;
+  --ds-line-height-lg: 24px;
+  --ds-font-size-xl: 18px;
+  --ds-line-height-xl: 28px;
+  --ds-font-size-2xl: 20px;
+  --ds-line-height-2xl: 28px;
+  --ds-font-size-3xl: 24px;
+  --ds-line-height-3xl: 32px;
+  --ds-font-size-4xl: 30px;
+  --ds-line-height-4xl: 38px;
+  --ds-font-weight-regular: 400;
+  --ds-font-weight-medium: 500;
+  --ds-font-weight-semibold: 600;
+  --ds-font-weight-bold: 700;
+  --ds-tracking-tight: -0.011em;
+  --ds-tracking-normal: 0em;
+  --ds-tracking-wide: 0.02em;
+
+  /* Elevation */
+  --ds-shadow-none: none;
+  --ds-shadow-xs: 0 1px 2px 0 hsl(var(--ds-shadow-color) / calc(0.05 * var(--ds-shadow-strength)));
+  --ds-shadow-sm:
+    0 1px 3px 0 hsl(var(--ds-shadow-color) / calc(0.08 * var(--ds-shadow-strength))),
+    0 1px 2px -1px hsl(var(--ds-shadow-color) / calc(0.06 * var(--ds-shadow-strength)));
+  --ds-shadow-md:
+    0 4px 8px -2px hsl(var(--ds-shadow-color) / calc(0.1 * var(--ds-shadow-strength))),
+    0 2px 4px -2px hsl(var(--ds-shadow-color) / calc(0.06 * var(--ds-shadow-strength)));
+  --ds-shadow-lg:
+    0 12px 20px -6px hsl(var(--ds-shadow-color) / calc(0.12 * var(--ds-shadow-strength))),
+    0 4px 8px -4px hsl(var(--ds-shadow-color) / calc(0.08 * var(--ds-shadow-strength)));
+  --ds-shadow-xl:
+    0 24px 40px -12px hsl(var(--ds-shadow-color) / calc(0.18 * var(--ds-shadow-strength))),
+    0 8px 16px -8px hsl(var(--ds-shadow-color) / calc(0.1 * var(--ds-shadow-strength)));
+
+  /* Motion */
+  --ds-duration-instant: 80ms;
+  --ds-duration-fast: 120ms;
+  --ds-duration-base: 180ms;
+  --ds-duration-slow: 260ms;
+  --ds-ease-standard: cubic-bezier(0.2, 0, 0, 1);
+  --ds-ease-enter: cubic-bezier(0, 0, 0.2, 1);
+  --ds-ease-exit: cubic-bezier(0.4, 0, 1, 1);
+
+  /* Stacking */
+  --ds-z-base: 0;
+  --ds-z-sticky: 100;
+  --ds-z-sidebar: 200;
+  --ds-z-topbar: 300;
+  --ds-z-dropdown: 400;
+  --ds-z-toast: 500;
+
+  /* Admin shell geometry */
+  --ds-layout-sidebar-width: 260px;
+  --ds-layout-sidebar-width-collapsed: 68px;
+  --ds-layout-topbar-height: 56px;
+  --ds-layout-content-max-width: 1440px;
+  --ds-layout-page-gutter: 24px;
+}
+
+/* Light is the default theme, so it also answers before JS sets data-theme. */
+:root,
+[data-theme='light'] {
+  --ds-canvas: #f9fafb;
+  --ds-surface: #ffffff;
+  --ds-surface-raised: #ffffff;
+  --ds-surface-sunken: #f3f4f7;
+  --ds-surface-inverse: #1b1e23;
+  --ds-fill-subtle: #f3f4f7;
+  --ds-fill-muted: #e4e7ec;
+  --ds-fill-strong: #cdd2da;
+  --ds-text: #1b1e23;
+  --ds-text-muted: #555e6d;
+  --ds-text-subtle: #6d7788;
+  --ds-text-disabled: #98a0ae;
+  --ds-text-inverse: #ffffff;
+  --ds-border: #e4e7ec;
+  --ds-border-subtle: #f3f4f7;
+  --ds-border-strong: #cdd2da;
+  --ds-border-focus: #3179ed;
+  --ds-primary: #1b1e23;
+  --ds-primary-hover: #2c313a;
+  --ds-primary-active: #3e4551;
+  --ds-primary-fg: #ffffff;
+  --ds-primary-subtle: #f3f4f7;
+  --ds-primary-subtle-fg: #1b1e23;
+  --ds-accent: #1b64da;
+  --ds-accent-hover: #1d55af;
+  --ds-accent-fg: #ffffff;
+  --ds-accent-subtle: #f0f6ff;
+  --ds-accent-subtle-fg: #1d55af;
+  --ds-accent-border: #bad4fc;
+  --ds-success: #1c8755;
+  --ds-success-hover: #156f45;
+  --ds-success-fg: #ffffff;
+  --ds-success-subtle: #edfdf5;
+  --ds-success-subtle-fg: #156f45;
+  --ds-success-border: #aaeece;
+  --ds-warning: #bd7b0a;
+  --ds-warning-hover: #93610b;
+  --ds-warning-fg: #ffffff;
+  --ds-warning-subtle: #fef6e6;
+  --ds-warning-subtle-fg: #93610b;
+  --ds-warning-border: #fcd592;
+  --ds-danger: #c7232e;
+  --ds-danger-hover: #a31f28;
+  --ds-danger-fg: #ffffff;
+  --ds-danger-subtle: #fef0f1;
+  --ds-danger-subtle-fg: #a31f28;
+  --ds-danger-border: #fabdc1;
+  --ds-info: #1b64da;
+  --ds-info-hover: #1d55af;
+  --ds-info-fg: #ffffff;
+  --ds-info-subtle: #f0f6ff;
+  --ds-info-subtle-fg: #1d55af;
+  --ds-info-border: #bad4fc;
+  --ds-scrim: rgba(27, 30, 35, 0.45);
+  --ds-shadow-color: 218 13% 12%;
+  --ds-shadow-strength: 1;
+  color-scheme: light;
+}
+
+[data-theme='dark'] {
+  --ds-canvas: #121417;
+  --ds-surface: #1b1e23;
+  --ds-surface-raised: #2c313a;
+  --ds-surface-sunken: #121417;
+  --ds-surface-inverse: #f9fafb;
+  --ds-fill-subtle: #2c313a;
+  --ds-fill-muted: #3e4551;
+  --ds-fill-strong: #555e6d;
+  --ds-text: #f9fafb;
+  --ds-text-muted: #98a0ae;
+  --ds-text-subtle: #6d7788;
+  --ds-text-disabled: #555e6d;
+  --ds-text-inverse: #1b1e23;
+  --ds-border: #3e4551;
+  --ds-border-subtle: #2c313a;
+  --ds-border-strong: #555e6d;
+  --ds-border-focus: #5c96f5;
+  --ds-primary: #f9fafb;
+  --ds-primary-hover: #ffffff;
+  --ds-primary-active: #e4e7ec;
+  --ds-primary-fg: #1b1e23;
+  --ds-primary-subtle: #2c313a;
+  --ds-primary-subtle-fg: #f9fafb;
+  --ds-accent: #5c96f5;
+  --ds-accent-hover: #8bb5f9;
+  --ds-accent-fg: #121417;
+  --ds-accent-subtle: #102341;
+  --ds-accent-subtle-fg: #8bb5f9;
+  --ds-accent-border: #1c4587;
+  --ds-success: #3ecc89;
+  --ds-success-hover: #74dcac;
+  --ds-success-fg: #121417;
+  --ds-success-subtle: #092a1b;
+  --ds-success-subtle-fg: #74dcac;
+  --ds-success-border: #105635;
+  --ds-warning: #f8ab25;
+  --ds-warning-hover: #fabe57;
+  --ds-warning-fg: #121417;
+  --ds-warning-subtle: #362507;
+  --ds-warning-subtle-fg: #fabe57;
+  --ds-warning-border: #744e0b;
+  --ds-danger: #ee636c;
+  --ds-danger-hover: #f58e95;
+  --ds-danger-fg: #121417;
+  --ds-danger-subtle: #3d0f12;
+  --ds-danger-subtle-fg: #f58e95;
+  --ds-danger-border: #7d1c22;
+  --ds-info: #5c96f5;
+  --ds-info-hover: #8bb5f9;
+  --ds-info-fg: #121417;
+  --ds-info-subtle: #102341;
+  --ds-info-subtle-fg: #8bb5f9;
+  --ds-info-border: #1c4587;
+  --ds-scrim: rgba(0, 0, 0, 0.65);
+  --ds-shadow-color: 218 14% 3%;
+  --ds-shadow-strength: 1.6;
+  color-scheme: dark;
+}

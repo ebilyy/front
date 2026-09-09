@@ -1,0 +1,29 @@
+/**
+ * Single stylesheet entry for the app.
+ *
+ * The layer order below is the whole cascade contract: Vuetify's Material CSS
+ * is the lowest layer, our tokens and base styles sit above it, and Tailwind
+ * utilities sit on top — so a utility class always wins over a component's
+ * built-in style without needing `!important`.
+ */
+@layer ds-overrides, vuetify, theme, base, components, utilities;
+
+@import 'vuetify/dist/vuetify.css' layer(vuetify);
+@import '@mdi/font/css/materialdesignicons.css' layer(vuetify);
+
+@import './tokens.generated.css';
+
+/* Tailwind's stock theme first (it carries the breakpoints that power `md:`
+   and friends), then ours on top, which replaces the colour/type scales. */
+@import 'tailwindcss/theme.css' layer(theme);
+@import './tailwind-theme.generated.css';
+
+@import 'tailwindcss/utilities.css' layer(utilities);
+
+@import './base.css';
+@import './vuetify-bridge.css';
+@import './overrides.css';
+
+/* Tailwind's preflight is deliberately not imported: Vuetify ships its own
+   reset, and running both leaves the two fighting over element defaults. */
+@source '../../';

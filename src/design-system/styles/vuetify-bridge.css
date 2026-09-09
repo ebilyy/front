@@ -1,0 +1,167 @@
+/**
+ * Pulls Vuetify's Material defaults onto design-system tokens.
+ *
+ * Vuetify's own rules sit in `@layer vuetify`, which is declared before
+ * `components`, so these plain selectors win without `!important`. Avoid
+ * Vuetify's `rounded` / `elevation` props in favour of these defaults — those
+ * props emit `!important` utilities that a later layer cannot override.
+ */
+
+@layer components {
+  .v-application {
+    font-family: var(--ds-font-sans);
+    letter-spacing: var(--ds-tracking-tight);
+  }
+
+  .v-btn {
+    border-radius: var(--ds-radius-md);
+    font-weight: var(--ds-font-weight-medium);
+    font-size: var(--ds-font-size-base);
+    letter-spacing: var(--ds-tracking-normal);
+    text-transform: none;
+  }
+
+  .v-btn--size-small {
+    font-size: var(--ds-font-size-sm);
+  }
+
+  .v-btn--icon {
+    border-radius: var(--ds-radius-md);
+  }
+
+  /* Vuetify outlines the button in full-strength `currentColor`, which reads as
+     a near-black frame. Mixing it down keeps the outline tied to whatever colour
+     the button carries, in either theme. */
+  .v-btn--variant-outlined {
+    border-color: color-mix(in srgb, currentColor 22%, transparent);
+  }
+
+  .v-btn--variant-outlined:hover {
+    border-color: color-mix(in srgb, currentColor 38%, transparent);
+    background-color: var(--ds-fill-subtle);
+  }
+
+  .v-card {
+    border-radius: var(--ds-radius-lg);
+    background-color: var(--ds-surface);
+  }
+
+  .v-card--variant-outlined {
+    border-color: var(--ds-border);
+  }
+
+  .v-field {
+    border-radius: var(--ds-radius-md);
+    font-size: var(--ds-font-size-base);
+  }
+
+  .v-field--variant-outlined .v-field__outline__start,
+  .v-field--variant-outlined .v-field__outline__notch::before,
+  .v-field--variant-outlined .v-field__outline__notch::after,
+  .v-field--variant-outlined .v-field__outline__end {
+    border-color: var(--ds-border);
+    opacity: 1;
+  }
+
+  .v-field--variant-outlined:hover .v-field__outline__start,
+  .v-field--variant-outlined:hover .v-field__outline__notch::before,
+  .v-field--variant-outlined:hover .v-field__outline__notch::after,
+  .v-field--variant-outlined:hover .v-field__outline__end {
+    border-color: var(--ds-border-strong);
+  }
+
+  .v-label {
+    color: var(--ds-text-muted);
+    opacity: 1;
+  }
+
+  .v-messages__message {
+    font-size: var(--ds-font-size-xs);
+  }
+
+  .v-list {
+    border-radius: var(--ds-radius-md);
+    background-color: var(--ds-surface-raised);
+  }
+
+  .v-list-item {
+    border-radius: var(--ds-radius-sm);
+    min-height: 36px;
+  }
+
+  .v-list-item-title {
+    font-size: var(--ds-font-size-base);
+  }
+
+  .v-chip {
+    border-radius: var(--ds-radius-sm);
+    font-weight: var(--ds-font-weight-medium);
+    letter-spacing: var(--ds-tracking-normal);
+  }
+
+  .v-menu > .v-overlay__content {
+    border: 1px solid var(--ds-border);
+    border-radius: var(--ds-radius-md);
+    box-shadow: var(--ds-shadow-lg);
+  }
+
+  .v-overlay__scrim {
+    background: var(--ds-scrim);
+    opacity: 1;
+  }
+
+  .v-tooltip > .v-overlay__content {
+    border-radius: var(--ds-radius-sm);
+    background: var(--ds-surface-inverse);
+    color: var(--ds-text-inverse);
+    font-size: var(--ds-font-size-xs);
+  }
+
+  .v-table {
+    border-radius: var(--ds-radius-lg);
+    background-color: var(--ds-surface);
+    font-size: var(--ds-font-size-base);
+  }
+
+  .v-table > .v-table__wrapper > table > thead > tr > th {
+    background-color: var(--ds-surface-sunken);
+    color: var(--ds-text-muted);
+    font-size: var(--ds-font-size-xs);
+    font-weight: var(--ds-font-weight-semibold);
+    letter-spacing: var(--ds-tracking-wide);
+    text-transform: uppercase;
+  }
+
+  /* Vuetify tints skeleton bones with `--v-border-opacity`, which the theme
+     pins to 1 so borders land exactly on the token — that would make bones
+     solid. Give them their own fill instead; the shimmer overlay is untouched. */
+  .v-skeleton-loader {
+    background: transparent;
+  }
+
+  .v-skeleton-loader .v-skeleton-loader__text,
+  .v-skeleton-loader .v-skeleton-loader__heading,
+  .v-skeleton-loader .v-skeleton-loader__button,
+  .v-skeleton-loader .v-skeleton-loader__chip,
+  .v-skeleton-loader .v-skeleton-loader__avatar,
+  .v-skeleton-loader .v-skeleton-loader__divider,
+  .v-skeleton-loader .v-skeleton-loader__image,
+  .v-skeleton-loader .v-skeleton-loader__ossein {
+    background: var(--ds-fill-muted);
+  }
+
+  .v-divider {
+    border-color: var(--ds-border);
+    opacity: 1;
+  }
+
+  .v-tabs {
+    --v-tabs-height: 40px;
+  }
+
+  .v-tab {
+    font-weight: var(--ds-font-weight-medium);
+    letter-spacing: var(--ds-tracking-normal);
+    text-transform: none;
+  }
+}

@@ -1,85 +1,94 @@
 <script setup lang="ts">
-import { RouterLink, RouterView } from 'vue-router'
-import HelloWorld from './core/components/HelloWorld.vue'
+import { computed } from 'vue'
+import { useRoute } from 'vue-router'
+
+import { AdminShell, type Crumb, type NavItem } from '@/design-system'
+
+const route = useRoute()
+
+const navItems: NavItem[] = [
+  { title: 'Огляд (приклад дизайну)', icon: 'mdi-view-dashboard-outline', to: { name: 'dashboard' } },
+  { title: 'Постачальники', icon: 'mdi-account-multiple-outline', to: { name: 'dashboard' } },
+  // {
+  //   title: 'Постачальники',
+  //   children: [
+  //     { title: 'Схеми', icon: 'mdi-sitemap-outline', disabled: true },
+  //     { title: 'Користувачі', icon: 'mdi-account-multiple-outline', disabled: true },
+  //     { title: 'Журнал подій', icon: 'mdi-history', disabled: true },
+  //   ],
+  // },
+  // {
+  //   title: 'Дані',
+  //   children: [
+  //     { title: 'Схеми', icon: 'mdi-sitemap-outline', disabled: true },
+  //     { title: 'Користувачі', icon: 'mdi-account-multiple-outline', disabled: true },
+  //     { title: 'Журнал подій', icon: 'mdi-history', disabled: true },
+  //   ],
+  // },
+  // {
+  //   title: 'Система',
+  //   children: [
+  //     {
+  //       title: 'Дизайн-система',
+  //       icon: 'mdi-palette-swatch-outline',
+  //       to: { name: 'design-system' },
+  //     },
+  //     { title: 'Налаштування', icon: 'mdi-cog-outline', disabled: true },
+  //   ],
+  // },
+]
+
+const breadcrumbs = computed<Crumb[]>(() => {
+  const trail: Crumb[] = [{ title: 'Schemka', to: { name: 'dashboard' } }]
+  const title = route.meta.title
+  if (typeof title === 'string' && route.name !== 'dashboard') trail.push({ title })
+  return trail
+})
 </script>
 
 <template>
-  <header>
-    <img alt="Vue logo" class="logo" src="@/assets/logo.svg" width="125" height="125" />
+  <<AdminShell :nav-items="navItems" :breadcrumbs="breadcrumbs">
+    <template #brand>
+      <div class="brand">
+        <span class="brand__mark">S</span>
+        <span class="brand__name">Schemka</span>
+      </div>
+    </template>
 
-    <div class="wrapper">
-      <HelloWorld msg="You did it!1" />
+    <template #account>
+      <v-btn icon="mdi-account-circle-outline" variant="text" size="small" aria-label="Профіль" />
+    </template>
 
-      <nav>
-        <RouterLink to="/">Home</RouterLink>
-        <RouterLink to="/about">About</RouterLink>
-      </nav>
-    </div>
-  </header>
-
+    <RouterView />
+  </AdminShell>
   <RouterView />
 </template>
 
 <style scoped>
-header {
-  line-height: 1.5;
-  max-height: 100vh;
+.brand {
+  display: flex;
+  align-items: center;
+  gap: var(--ds-space-2);
+  min-width: 0;
 }
 
-.logo {
-  display: block;
-  margin: 0 auto 2rem;
+.brand__mark {
+  display: grid;
+  place-items: center;
+  flex: none;
+  width: 28px;
+  height: 28px;
+  border-radius: var(--ds-radius-md);
+  background-color: var(--ds-primary);
+  color: var(--ds-primary-fg);
+  font-size: var(--ds-font-size-base);
+  font-weight: var(--ds-font-weight-bold);
 }
 
-nav {
-  width: 100%;
-  font-size: 12px;
-  text-align: center;
-  margin-top: 2rem;
-}
-
-nav a.router-link-exact-active {
-  color: var(--color-text);
-}
-
-nav a.router-link-exact-active:hover {
-  background-color: transparent;
-}
-
-nav a {
-  display: inline-block;
-  padding: 0 1rem;
-  border-left: 1px solid var(--color-border);
-}
-
-nav a:first-of-type {
-  border: 0;
-}
-
-@media (min-width: 1024px) {
-  header {
-    display: flex;
-    place-items: center;
-    padding-right: calc(var(--section-gap) / 2);
-  }
-
-  .logo {
-    margin: 0 2rem 0 0;
-  }
-
-  header .wrapper {
-    display: flex;
-    place-items: flex-start;
-    flex-wrap: wrap;
-  }
-
-  nav {
-    text-align: left;
-    margin-left: -1rem;
-    font-size: 1rem;
-
-    padding: 1rem 0;
-    margin-top: 1rem;
-  }
+.brand__name {
+  font-size: var(--ds-font-size-lg);
+  font-weight: var(--ds-font-weight-semibold);
+  letter-spacing: var(--ds-tracking-tight);
+  white-space: nowrap;
 }
 </style>
