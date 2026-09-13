@@ -25,6 +25,20 @@ export const palette = {
     950: '#121417',
     1000: '#000000',
   },
+  /** Brand action — buttons, brand mark, selected navigation. */
+  primary: {
+    50: '#F5F4FF',
+    100: '#E8E4FE',
+    200: '#D3CBFC',
+    300: '#B5A6F9',
+    400: '#9B80F5',
+    500: '#865DED',
+    600: '#7448D7',
+    700: '#603CB3',
+    800: '#4C338A',
+    900: '#382964',
+    950: '#251B43',
+  },
   /** Interactive accent — links, focus rings, selected states. */
   accent: {
     50: '#F0F6FF',

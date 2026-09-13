@@ -1,6 +1,7 @@
 import { palette } from './palette'
 
 const n = palette.neutral
+const p = palette.primary
 const a = palette.accent
 const s = palette.success
 const w = palette.warning
@@ -43,13 +44,13 @@ const light = {
   'border-strong': n[300],
   'border-focus': a[500],
 
-  // Brand action — dark buttons on a light UI.
-  primary: n[900],
-  'primary-hover': n[800],
-  'primary-active': n[700],
+  // Brand action — the one emphasised button on a view.
+  primary: p[600],
+  'primary-hover': p[700],
+  'primary-active': p[800],
   'primary-fg': n[0],
-  'primary-subtle': n[100],
-  'primary-subtle-fg': n[900],
+  'primary-subtle': p[50],
+  'primary-subtle-fg': p[700],
 
   // Accent — links, focus rings, selected rows.
   accent: a[600],
@@ -112,13 +113,13 @@ const dark = {
   'border-strong': n[600],
   'border-focus': a[400],
 
-  // Inverted brand action — light buttons on a dark UI.
-  primary: n[50],
-  'primary-hover': n[0],
-  'primary-active': n[200],
-  'primary-fg': n[900],
-  'primary-subtle': n[800],
-  'primary-subtle-fg': n[50],
+  // Lightened brand action — the dark surfaces stay untouched behind it.
+  primary: p[400],
+  'primary-hover': p[300],
+  'primary-active': p[200],
+  'primary-fg': n[950],
+  'primary-subtle': p[900],
+  'primary-subtle-fg': p[300],
 
   accent: a[400],
   'accent-hover': a[300],
