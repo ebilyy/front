@@ -7,7 +7,11 @@ import { AdminShell, type Crumb, type NavItem } from '@/design-system'
 const route = useRoute()
 
 const navItems: NavItem[] = [
-  { title: 'Огляд (приклад дизайну)', icon: 'mdi-view-dashboard-outline', to: { name: 'dashboard' } },
+  {
+    title: 'Огляд (приклад дизайну)',
+    icon: 'mdi-view-dashboard-outline',
+    to: { name: 'dashboard' },
+  },
   { title: 'Постачальники', icon: 'mdi-account-multiple-outline', to: { name: 'suppliers' } },
   // {
   //   title: 'Постачальники',
@@ -47,7 +51,7 @@ const breadcrumbs = computed<Crumb[]>(() => {
 </script>
 
 <template>
-  <<AdminShell :nav-items="navItems" :breadcrumbs="breadcrumbs">
+  <AdminShell :nav-items="navItems" :breadcrumbs="breadcrumbs">
     <template #brand>
       <div class="brand">
         <span class="brand__mark">S</span>
@@ -61,7 +65,6 @@ const breadcrumbs = computed<Crumb[]>(() => {
 
     <RouterView />
   </AdminShell>
-  <RouterView />
 </template>
 
 <style scoped>

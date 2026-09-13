@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import type { VDataTable } from 'vuetify/components'
+import { VDataTable, VDataTableServer } from 'vuetify/components'
 
 import EmptyState from './EmptyState.vue'
 
@@ -9,8 +9,14 @@ type DataTableProps = InstanceType<typeof VDataTable>['$props']
  * The admin's table surface: a card-framed `v-data-table` with the toolbar,
  * loading and empty states already wired up.
  *
- * Everything not declared below is forwarded to `v-data-table`, and so are all
- * of its slots — so `#item.name` and friends keep working unchanged.
+ * Everything not declared below is forwarded to the table, and so are all of
+ * its slots — so `#item.name` and friends keep working unchanged.
+ *
+ * With `server`, it renders `v-data-table-server` instead: paging and sorting
+ * then belong to the backend, so pass `items-length` and drive `page` /
+ * `items-per-page` yourself. Built-in search filters the loaded rows only,
+ * which on a server table means one page — leave `searchable` off there unless
+ * the endpoint itself can search.
  */
 withDefaults(
   defineProps<{
@@ -22,6 +28,10 @@ withDefaults(
     searchPlaceholder?: string
     emptyTitle?: string
     emptyDescription?: string
+    /** Paging happens on the backend — pair with `itemsLength`. */
+    server?: boolean
+    /** Total row count across all pages. Required when `server` is set. */
+    itemsLength?: number
   }>(),
   {
     searchPlaceholder: 'Пошук…',
@@ -56,10 +66,12 @@ defineOptions({ inheritAttrs: false })
 
     <v-divider v-if="title || searchable || $slots.actions" />
 
-    <v-data-table
+    <component
+      :is="server ? VDataTableServer : VDataTable"
       v-bind="$attrs"
       :headers="headers"
       :items="items"
+      :items-length="itemsLength"
       :search="search"
       :loading="loading"
     >
@@ -75,7 +87,7 @@ defineOptions({ inheritAttrs: false })
       <template v-for="(_, name) in $slots" #[name]="slotProps">
         <slot :name="name" v-bind="slotProps ?? {}" />
       </template>
-    </v-data-table>
+    </component>
   </v-card>
 </template>
 

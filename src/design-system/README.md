@@ -108,6 +108,12 @@ const { activeTheme, preference, isDark, setPreference, toggle } = useAppTheme()
 - **Нові кольори у темі Vuetify** водночас створюють класи `.bg-*` / `.text-*`
   у рантаймі, які тінитимуть однойменну утиліту Tailwind. Додавай у
   `theme/vuetify.ts` лише те, що справді потрібне у пропі `color`.
+- **Плоскі правила в `base` і `components` перебивають стани Vuetify.** Шари
+  `base` і `components` стоять вище за `vuetify`, тож правило без модифікатора
+  (`::placeholder { opacity: 1 }`, `border-color` на сегментах `.v-field`)
+  затирає й ті правила, якими Vuetify показує фокус, помилку чи виріз під
+  спливлим лейблом. Такі декларації треба або звужувати модифікатором, або
+  повторювати стан поруч — див. блок `.v-field` у `vuetify-bridge.css`.
 - `--v-border-opacity` тема тримає на `1`, щоб межі точно збігалися з токеном;
   Vuetify використовує цю ж змінну для «кісток» скелетона, тому їм заданий
   окремий фон у бриджі.
@@ -133,7 +139,12 @@ core/components/
                  + типи Crumb, NavItem
   data/          DataTable, EmptyState, StatusBadge
                  + тип StatusTone
+  feedback/      ConfirmDialog
 ```
+
+Компоненти окремої фічі (наприклад `suppliers/SupplierFormDialog`) лежать поруч
+у `core/components/<фіча>/` і в дизайн-систему не реекспортуються — вони знають
+про свою доменну модель, тож імпортуються напряму з `@/core/components/<фіча>`.
 
 ### Імпорти
 
@@ -141,8 +152,8 @@ core/components/
 читається краще у конкретному місці:
 
 ```ts
-import { AdminShell, type NavItem } from '@/design-system'          // усе разом
-import { AdminShell, type NavItem } from '@/core/components'        // лише компоненти
+import { AdminShell, type NavItem } from '@/design-system' // усе разом
+import { AdminShell, type NavItem } from '@/core/components' // лише компоненти
 import { AdminShell, type NavItem } from '@/core/components/layout' // одна група
 ```
 

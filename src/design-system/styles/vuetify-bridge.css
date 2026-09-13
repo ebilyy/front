@@ -70,9 +70,53 @@
     border-color: var(--ds-border-strong);
   }
 
+  /* The flat `border-color` above lands on every outline segment in every
+     state, which paints over the two things Vuetify says with that border:
+     focus and validation. Both are restated here — same specificity, later in
+     the file, so they win — with error last, because an invalid field stays
+     red while it is focused. */
+  .v-field--focused.v-field--variant-outlined .v-field__outline__start,
+  .v-field--focused.v-field--variant-outlined .v-field__outline__notch::before,
+  .v-field--focused.v-field--variant-outlined .v-field__outline__notch::after,
+  .v-field--focused.v-field--variant-outlined .v-field__outline__end {
+    border-color: var(--ds-border-focus);
+  }
+
+  .v-field--error.v-field--variant-outlined .v-field__outline__start,
+  .v-field--error.v-field--variant-outlined .v-field__outline__notch::before,
+  .v-field--error.v-field--variant-outlined .v-field__outline__notch::after,
+  .v-field--error.v-field--variant-outlined .v-field__outline__end {
+    border-color: var(--ds-danger);
+  }
+
+  /* A floated label sits *on* the top border, so Vuetify fades that one
+     segment out to cut a gap for it. The blanket `opacity: 1` welds the gap
+     shut and the label ends up struck through by its own border. */
+  .v-field--active.v-field--variant-outlined .v-field__outline__notch::before {
+    opacity: 0;
+  }
+
+  /* The field already shows focus on its own outline, so the app-wide ring
+     from `base.css` is a second indicator around the same control — and its
+     2px offset boxes in the floated label and clips it. Buttons, checkboxes
+     and links keep the global ring; only the inner control opts out. */
+  .v-field input:focus-visible,
+  .v-field textarea:focus-visible {
+    outline: none;
+  }
+
   .v-label {
     color: var(--ds-text-muted);
     opacity: 1;
+  }
+
+  /* `base.css` resets `::placeholder { opacity: 1 }` for Firefox, and the `base`
+     layer outranks `vuetify` — which undoes the rule that keeps a placeholder
+     hidden until the label has floated out of its way. Restore it here, where
+     the layer order puts us back on top. */
+  .v-text-field .v-field:not(.v-field--no-label, .v-field--active) input::placeholder,
+  .v-textarea .v-field:not(.v-field--no-label, .v-field--active) textarea::placeholder {
+    opacity: 0;
   }
 
   .v-messages__message {
