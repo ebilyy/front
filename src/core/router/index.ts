@@ -26,13 +26,13 @@ const router = createRouter({
       meta: { title: 'Dashboard' },
     },
 
-    {
-      path: '/design-system',
-      name: 'design-system',
-      // Route-level code splitting: the styleguide is not part of daily use.
-      component: () => import('../views/DesignSystemView.vue'),
-      meta: { title: 'Дизайн-система' },
-    },
+    // {
+    //   path: '/design-system',
+    //   name: 'design-system',
+    //   // Route-level code splitting: the styleguide is not part of daily use.
+    //   component: () => import('../views/DesignSystemView.vue'),
+    //   meta: { title: 'Дизайн-система' },
+    // },
   ],
 })
 

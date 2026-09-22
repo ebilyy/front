@@ -7,11 +7,11 @@ import { AdminShell, type Crumb, type NavItem } from '@/design-system'
 const route = useRoute()
 
 const navItems: NavItem[] = [
-  {
-    title: 'Огляд (приклад дизайну)',
-    icon: 'mdi-view-dashboard-outline',
-    to: { name: 'dashboard' },
-  },
+  // {
+  //   title: 'Огляд (приклад дизайну)',
+  //   icon: 'mdi-view-dashboard-outline',
+  //   to: { name: 'dashboard' },
+  // },
   { title: 'Постачальники', icon: 'mdi-account-multiple-outline', to: { name: 'suppliers' } },
   // {
   //   title: 'Постачальники',
