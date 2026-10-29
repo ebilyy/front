@@ -5,7 +5,7 @@ import { storeToRefs } from 'pinia'
 import { ApiError, type Supplier } from '@/core/api'
 import { SupplierFormDialog } from '@/core/components/suppliers'
 import { useSuppliersStore } from '@/core/stores/suppliers'
-import { ConfirmDialog, DataTable, PageHeader } from '@/design-system'
+import { ConfirmDialog, DataTable, PageHeader } from '@/core/components'
 
 const store = useSuppliersStore()
 const { items, total, page, limit, loading, error } = storeToRefs(store)
@@ -59,7 +59,7 @@ async function confirmDelete() {
     notify(`Постачальника «${supplier.name}» видалено`)
   } catch (err) {
     // The dialog stays open on failure, with the reason in the snackbar.
-    notify(err instanceof ApiError ? err.message : 'Не вдалося видалити постачальника', 'danger')
+    notify(err instanceof ApiError ? err.message : 'Не вдалося видалити постачальника', 'error')
   } finally {
     deleting.value = false
   }
@@ -67,7 +67,7 @@ async function confirmDelete() {
 
 const snackbar = ref({ open: false, text: '', color: 'success' })
 
-function notify(text: string, color: 'success' | 'danger' = 'success') {
+function notify(text: string, color: 'success' | 'error' = 'success') {
   snackbar.value = { open: true, text, color }
 }
 
@@ -107,15 +107,15 @@ onMounted(store.fetchAll)
   >
     <template #[`item.description`]="{ item }">
       <span v-if="item.description" class="description">{{ item.description }}</span>
-      <span v-else class="muted">—</span>
+      <span v-else class="text-medium-emphasis">—</span>
     </template>
 
     <template #[`item.updatedAt`]="{ item }">
-      <span class="muted">{{ formatDate(item.updatedAt) }}</span>
+      <span class="text-medium-emphasis">{{ formatDate(item.updatedAt) }}</span>
     </template>
 
     <template #[`item.actions`]="{ item }">
-      <div class="row-actions">
+      <div class="d-flex justify-end ga-1">
         <v-btn
           icon="mdi-pencil-outline"
           variant="text"
@@ -127,7 +127,7 @@ onMounted(store.fetchAll)
           icon="mdi-trash-can-outline"
           variant="text"
           size="small"
-          color="danger"
+          color="error"
           aria-label="Видалити"
           @click="pendingDelete = item"
         />
@@ -148,7 +148,7 @@ onMounted(store.fetchAll)
     title="Видалити постачальника?"
     :message="`«${pendingDelete?.name}» зникне зі списку. Дію можна скасувати лише на боці бекенду.`"
     confirm-label="Видалити"
-    tone="danger"
+    tone="error"
     :loading="deleting"
     @update:model-value="pendingDelete = null"
     @confirm="confirmDelete"
@@ -160,12 +160,6 @@ onMounted(store.fetchAll)
 </template>
 
 <style scoped>
-.row-actions {
-  display: flex;
-  justify-content: flex-end;
-  gap: var(--ds-space-1);
-}
-
 .description {
   display: -webkit-box;
   -webkit-box-orient: vertical;
@@ -173,9 +167,5 @@ onMounted(store.fetchAll)
   line-clamp: 2;
   overflow: hidden;
   max-width: 42ch;
-}
-
-.muted {
-  color: var(--ds-text-muted);
 }
 </style>

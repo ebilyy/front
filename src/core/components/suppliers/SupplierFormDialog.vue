@@ -109,7 +109,7 @@ async function submit() {
           {{ isEdit ? 'Редагувати постачальника' : 'Новий постачальник' }}
         </v-card-title>
 
-        <v-card-text class="form">
+        <v-card-text class="d-flex flex-column ga-4">
           <v-alert v-if="formError" type="error" :text="formError" />
 
           <v-text-field
@@ -154,11 +154,3 @@ async function submit() {
     </v-card>
   </v-dialog>
 </template>
-
-<style scoped>
-.form {
-  display: flex;
-  flex-direction: column;
-  gap: var(--ds-space-4);
-}
-</style>

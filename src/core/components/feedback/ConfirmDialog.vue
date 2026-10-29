@@ -13,8 +13,8 @@ withDefaults(
     confirmLabel?: string
     cancelLabel?: string
     loading?: boolean
-    /** `danger` for destructive actions — matches the button colour tokens. */
-    tone?: 'primary' | 'danger'
+    /** `error` for destructive actions — passed straight to the button's `color`. */
+    tone?: 'primary' | 'error'
   }>(),
   {
     confirmLabel: 'Підтвердити',

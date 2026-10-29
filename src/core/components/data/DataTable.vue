@@ -45,11 +45,14 @@ defineOptions({ inheritAttrs: false })
 </script>
 
 <template>
-  <v-card class="ds-table">
-    <div v-if="title || searchable || $slots.actions" class="ds-table__toolbar">
-      <h2 v-if="title" class="ds-table__title">{{ title }}</h2>
+  <v-card class="overflow-hidden">
+    <div
+      v-if="title || searchable || $slots.actions"
+      class="d-flex flex-wrap align-center justify-space-between ga-3 px-4 py-3"
+    >
+      <h2 v-if="title" class="text-h6">{{ title }}</h2>
 
-      <div class="ds-table__toolbar-end">
+      <div class="d-flex align-center ga-2 ms-auto">
         <v-text-field
           v-if="searchable"
           v-model="search"
@@ -58,7 +61,7 @@ defineOptions({ inheritAttrs: false })
           density="compact"
           hide-details
           clearable
-          class="ds-table__search"
+          class="table__search"
         />
         <slot name="actions" />
       </div>
@@ -92,32 +95,7 @@ defineOptions({ inheritAttrs: false })
 </template>
 
 <style scoped>
-.ds-table {
-  overflow: hidden;
-}
-
-.ds-table__toolbar {
-  display: flex;
-  flex-wrap: wrap;
-  align-items: center;
-  justify-content: space-between;
-  gap: var(--ds-space-3);
-  padding: var(--ds-space-3) var(--ds-space-4);
-}
-
-.ds-table__title {
-  font-size: var(--ds-font-size-lg);
-  font-weight: var(--ds-font-weight-semibold);
-}
-
-.ds-table__toolbar-end {
-  display: flex;
-  align-items: center;
-  gap: var(--ds-space-2);
-  margin-inline-start: auto;
-}
-
-.ds-table__search {
+.table__search {
   min-width: 220px;
 }
 </style>

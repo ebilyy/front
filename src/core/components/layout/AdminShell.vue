@@ -26,22 +26,10 @@ const rail = ref(false)
       <template #account><slot name="account" /></template>
     </AppTopbar>
 
-    <v-main class="ds-main">
-      <div class="ds-page">
+    <v-main>
+      <v-container max-width="1440" class="pa-6">
         <slot />
-      </div>
+      </v-container>
     </v-main>
   </v-app>
 </template>
-
-<style scoped>
-.ds-main {
-  background-color: var(--ds-canvas);
-}
-
-.ds-page {
-  max-width: var(--ds-layout-content-max-width);
-  margin-inline: auto;
-  padding: var(--ds-layout-page-gutter);
-}
-</style>

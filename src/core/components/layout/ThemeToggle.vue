@@ -1,9 +1,10 @@
 <script setup lang="ts">
 import { computed } from 'vue'
+import { useTheme } from 'vuetify'
 
-import { useAppTheme, type ThemePreference } from '@/design-system/composables/useAppTheme'
+import { saveThemePreference, type ThemePreference } from '@/core/plugins/vuetify'
 
-const { preference, activeTheme, setPreference } = useAppTheme()
+const theme = useTheme()
 
 const options: { value: ThemePreference; icon: string; label: string }[] = [
   { value: 'light', icon: 'mdi-weather-sunny', label: 'Світла' },
@@ -11,10 +12,20 @@ const options: { value: ThemePreference; icon: string; label: string }[] = [
   { value: 'system', icon: 'mdi-monitor', label: 'Як у системі' },
 ]
 
+/** `theme.name` is already resolved, so it never reads `system` itself. */
+const preference = computed<ThemePreference>(() =>
+  theme.isSystem.value ? 'system' : (theme.name.value as ThemePreference),
+)
+
 /** `system` has no icon of its own on the trigger — show what it resolved to. */
 const triggerIcon = computed(() =>
-  activeTheme.value === 'dark' ? 'mdi-weather-night' : 'mdi-weather-sunny',
+  theme.current.value.dark ? 'mdi-weather-night' : 'mdi-weather-sunny',
 )
+
+function setPreference(value: ThemePreference) {
+  theme.change(value)
+  saveThemePreference(value)
+}
 </script>
 
 <template>

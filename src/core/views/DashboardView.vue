@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { ref } from 'vue'
 
-import { DataTable, PageHeader, StatusBadge, type StatusTone } from '@/design-system'
+import { DataTable, PageHeader, StatusBadge, type StatusTone } from '@/core/components'
 
 /** Placeholder data — replace with the real API once the endpoints exist. */
 interface SchemeRow {
@@ -16,7 +16,7 @@ interface SchemeRow {
 const stats = [
   { label: 'Активні схеми', value: '128', delta: '+12', tone: 'success' as const },
   { label: 'Чернетки', value: '34', delta: '+3', tone: 'neutral' as const },
-  { label: 'Помилки валідації', value: '7', delta: '−2', tone: 'danger' as const },
+  { label: 'Помилки валідації', value: '7', delta: '−2', tone: 'error' as const },
   { label: 'Користувачі', value: '52', delta: '+1', tone: 'neutral' as const },
 ]
 
@@ -56,7 +56,7 @@ const rows: SchemeRow[] = [
     id: 4,
     name: 'Тарифна сітка',
     owner: 'О. Дорошенко',
-    status: 'danger',
+    status: 'error',
     statusLabel: 'Помилка',
     updatedAt: '02.09.2026',
   },
@@ -73,15 +73,17 @@ const search = ref('')
     </template>
   </PageHeader>
 
-  <div class="stats">
-    <v-card v-for="stat in stats" :key="stat.label" class="stat">
-      <div class="stat__label">{{ stat.label }}</div>
-      <div class="stat__row">
-        <span class="stat__value">{{ stat.value }}</span>
-        <StatusBadge :tone="stat.tone" :label="stat.delta" :dot="false" />
-      </div>
-    </v-card>
-  </div>
+  <v-row class="mb-2">
+    <v-col v-for="stat in stats" :key="stat.label" cols="12" sm="6" lg="3">
+      <v-card class="pa-4">
+        <div class="text-overline text-medium-emphasis">{{ stat.label }}</div>
+        <div class="d-flex align-center ga-2">
+          <span class="text-h4 font-weight-medium">{{ stat.value }}</span>
+          <StatusBadge :tone="stat.tone" :label="stat.delta" :dot="false" />
+        </div>
+      </v-card>
+    </v-col>
+  </v-row>
 
   <DataTable
     v-model:search="search"
@@ -106,38 +108,3 @@ const search = ref('')
     </template>
   </DataTable>
 </template>
-
-<style scoped>
-.stats {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-  gap: var(--ds-space-4);
-  margin-bottom: var(--ds-space-6);
-}
-
-.stat {
-  padding: var(--ds-space-4);
-}
-
-.stat__label {
-  color: var(--ds-text-muted);
-  font-size: var(--ds-font-size-xs);
-  font-weight: var(--ds-font-weight-medium);
-  letter-spacing: var(--ds-tracking-wide);
-  text-transform: uppercase;
-}
-
-.stat__row {
-  display: flex;
-  align-items: center;
-  gap: var(--ds-space-2);
-  margin-top: var(--ds-space-2);
-}
-
-.stat__value {
-  font-size: var(--ds-font-size-3xl);
-  line-height: var(--ds-line-height-3xl);
-  font-weight: var(--ds-font-weight-semibold);
-  letter-spacing: var(--ds-tracking-tight);
-}
-</style>

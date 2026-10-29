@@ -10,7 +10,7 @@ defineEmits<{ 'toggle-nav': [] }>()
 </script>
 
 <template>
-  <v-app-bar :height="56" color="surface" flat class="ds-topbar">
+  <v-app-bar :height="56" color="surface" flat border="b">
     <v-btn
       icon="mdi-menu"
       variant="text"
@@ -20,19 +20,23 @@ defineEmits<{ 'toggle-nav': [] }>()
       @click="$emit('toggle-nav')"
     />
 
-    <nav v-if="breadcrumbs?.length" class="ds-topbar__crumbs" aria-label="Хлібні крихти">
+    <nav
+      v-if="breadcrumbs?.length"
+      class="topbar__crumbs d-flex align-center ga-2 ms-2 text-body-2"
+      aria-label="Хлібні крихти"
+    >
       <template v-for="(crumb, index) in breadcrumbs" :key="crumb.title">
-        <span v-if="index > 0" class="ds-topbar__separator" aria-hidden="true">/</span>
+        <span v-if="index > 0" class="text-disabled" aria-hidden="true">/</span>
         <RouterLink
           v-if="crumb.to && index < breadcrumbs.length - 1"
           :to="crumb.to"
-          class="ds-topbar__crumb"
+          class="text-medium-emphasis text-decoration-none text-no-wrap"
         >
           {{ crumb.title }}
         </RouterLink>
         <span
           v-else
-          class="ds-topbar__crumb ds-topbar__crumb--current"
+          class="font-weight-medium text-truncate"
           :aria-current="index === breadcrumbs.length - 1 ? 'page' : undefined"
         >
           {{ crumb.title }}
@@ -42,7 +46,7 @@ defineEmits<{ 'toggle-nav': [] }>()
 
     <v-spacer />
 
-    <div class="ds-topbar__actions">
+    <div class="d-flex align-center ga-1 pe-3">
       <slot name="actions" />
       <ThemeToggle />
       <slot name="account" />
@@ -51,43 +55,8 @@ defineEmits<{ 'toggle-nav': [] }>()
 </template>
 
 <style scoped>
-.ds-topbar {
-  border-bottom: 1px solid var(--ds-border);
-}
-
-.ds-topbar__crumbs {
-  display: flex;
-  align-items: center;
-  gap: var(--ds-space-2);
+/* Lets the current crumb shrink and ellipsize instead of pushing the actions off. */
+.topbar__crumbs {
   min-width: 0;
-  margin-inline-start: var(--ds-space-2);
-  font-size: var(--ds-font-size-base);
-}
-
-.ds-topbar__separator {
-  color: var(--ds-text-disabled);
-}
-
-.ds-topbar__crumb {
-  color: var(--ds-text-muted);
-  white-space: nowrap;
-}
-
-.ds-topbar__crumb--current {
-  color: var(--ds-text);
-  font-weight: var(--ds-font-weight-medium);
-  overflow: hidden;
-  text-overflow: ellipsis;
-}
-
-a.ds-topbar__crumb:hover {
-  color: var(--ds-text);
-}
-
-.ds-topbar__actions {
-  display: flex;
-  align-items: center;
-  gap: var(--ds-space-1);
-  padding-inline-end: var(--ds-space-3);
 }
 </style>

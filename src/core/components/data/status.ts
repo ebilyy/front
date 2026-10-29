@@ -1,5 +1,5 @@
 /**
- * Semantic tone of a status indicator. Each value maps to the matching
- * `*-subtle` colour tokens, so tones stay legible in both themes.
+ * Semantic tone of a status indicator. Everything except `neutral` is a Vuetify
+ * theme colour and goes straight to the chip's `color`.
  */
-export type StatusTone = 'neutral' | 'accent' | 'success' | 'warning' | 'danger' | 'info'
+export type StatusTone = 'neutral' | 'primary' | 'success' | 'warning' | 'error' | 'info'

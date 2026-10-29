@@ -6,52 +6,27 @@ defineProps<{
 </script>
 
 <template>
-  <header class="ds-page-header">
-    <div class="ds-page-header__text">
-      <h1 class="ds-page-header__title">{{ title }}</h1>
-      <p v-if="description" class="ds-page-header__description">{{ description }}</p>
+  <header class="d-flex flex-wrap align-start justify-space-between ga-4 mb-6">
+    <div class="page-header__text d-flex flex-column ga-1">
+      <h1 class="text-h5 font-weight-medium">{{ title }}</h1>
+      <p v-if="description" class="page-header__description text-body-1 text-medium-emphasis">
+        {{ description }}
+      </p>
       <slot name="meta" />
     </div>
 
-    <div v-if="$slots.actions" class="ds-page-header__actions">
+    <div v-if="$slots.actions" class="d-flex align-center ga-2">
       <slot name="actions" />
     </div>
   </header>
 </template>
 
 <style scoped>
-.ds-page-header {
-  display: flex;
-  flex-wrap: wrap;
-  align-items: flex-start;
-  justify-content: space-between;
-  gap: var(--ds-space-4);
-  margin-bottom: var(--ds-space-6);
-}
-
-.ds-page-header__text {
-  display: flex;
-  flex-direction: column;
-  gap: var(--ds-space-1);
+.page-header__text {
   min-width: 0;
 }
 
-.ds-page-header__title {
-  font-size: var(--ds-font-size-2xl);
-  line-height: var(--ds-line-height-2xl);
-  font-weight: var(--ds-font-weight-semibold);
-}
-
-.ds-page-header__description {
-  color: var(--ds-text-muted);
-  font-size: var(--ds-font-size-md);
-  line-height: var(--ds-line-height-md);
+.page-header__description {
   max-width: 72ch;
-}
-
-.ds-page-header__actions {
-  display: flex;
-  align-items: center;
-  gap: var(--ds-space-2);
 }
 </style>

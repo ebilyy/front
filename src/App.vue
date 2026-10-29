@@ -2,7 +2,7 @@
 import { computed } from 'vue'
 import { useRoute } from 'vue-router'
 
-import { AdminShell, type Crumb, type NavItem } from '@/design-system'
+import { AdminShell, type Crumb, type NavItem } from '@/core/components'
 
 const route = useRoute()
 
@@ -32,11 +32,6 @@ const navItems: NavItem[] = [
   // {
   //   title: 'Система',
   //   children: [
-  //     {
-  //       title: 'Дизайн-система',
-  //       icon: 'mdi-palette-swatch-outline',
-  //       to: { name: 'design-system' },
-  //     },
   //     { title: 'Налаштування', icon: 'mdi-cog-outline', disabled: true },
   //   ],
   // },
@@ -53,9 +48,9 @@ const breadcrumbs = computed<Crumb[]>(() => {
 <template>
   <AdminShell :nav-items="navItems" :breadcrumbs="breadcrumbs">
     <template #brand>
-      <div class="brand">
-        <span class="brand__mark">S</span>
-        <span class="brand__name">Schemka</span>
+      <div class="d-flex align-center ga-2">
+        <v-avatar color="primary" size="28" rounded="lg" class="font-weight-bold">S</v-avatar>
+        <span class="text-h6 text-no-wrap">Schemka</span>
       </div>
     </template>
 
@@ -66,32 +61,3 @@ const breadcrumbs = computed<Crumb[]>(() => {
     <RouterView />
   </AdminShell>
 </template>
-
-<style scoped>
-.brand {
-  display: flex;
-  align-items: center;
-  gap: var(--ds-space-2);
-  min-width: 0;
-}
-
-.brand__mark {
-  display: grid;
-  place-items: center;
-  flex: none;
-  width: 28px;
-  height: 28px;
-  border-radius: var(--ds-radius-md);
-  background-color: var(--ds-primary);
-  color: var(--ds-primary-fg);
-  font-size: var(--ds-font-size-base);
-  font-weight: var(--ds-font-weight-bold);
-}
-
-.brand__name {
-  font-size: var(--ds-font-size-lg);
-  font-weight: var(--ds-font-weight-semibold);
-  letter-spacing: var(--ds-tracking-tight);
-  white-space: nowrap;
-}
-</style>
