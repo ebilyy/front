@@ -1,6 +1,7 @@
 import { createRouter, createWebHistory } from 'vue-router'
 
 import DashboardView from '../views/DashboardView.vue'
+import FilesView from '../views/FilesView.vue'
 import HomeView from '../views/HomeView.vue'
 import SuppliersView from '../views/SuppliersView.vue'
 
@@ -18,6 +19,12 @@ const router = createRouter({
       name: 'suppliers',
       component: SuppliersView,
       meta: { title: 'Постачальники' },
+    },
+    {
+      path: '/files',
+      name: 'files',
+      component: FilesView,
+      meta: { title: 'Файли' },
     },
     {
       path: '/dashboard',

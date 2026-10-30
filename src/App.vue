@@ -13,6 +13,7 @@ const navItems: NavItem[] = [
   //   to: { name: 'dashboard' },
   // },
   { title: 'Постачальники', icon: 'mdi-account-multiple-outline', to: { name: 'suppliers' } },
+  { title: 'Файли', icon: 'mdi-file-document-multiple-outline', to: { name: 'files' } },
   // {
   //   title: 'Постачальники',
   //   children: [

@@ -7,3 +7,12 @@ export type { Paginated, PaginationMeta, PaginationQuery } from './types'
 
 export { suppliersApi } from './suppliers'
 export type { CreateSupplierDto, Supplier, UpdateSupplierDto } from './suppliers'
+
+export {
+  filesApi,
+  FILES_FIELD,
+  MAX_FILE_SIZE_BYTES,
+  MAX_FILE_SIZE_MB,
+  MAX_FILES_PER_REQUEST,
+} from './files'
+export type { FileUpload } from './files'

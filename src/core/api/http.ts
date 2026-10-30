@@ -92,12 +92,15 @@ async function request<T>(
 ): Promise<T> {
   let response: Response
 
+  // FormData goes out as is: the browser writes the multipart Content-Type
+  // itself, boundary included, and a hand-set header would lose that boundary.
+  const isJson = body !== undefined && !(body instanceof FormData)
+
   try {
     response = await fetch(buildUrl(path, query), {
       ...init,
-      headers:
-        body === undefined ? init.headers : { 'Content-Type': 'application/json', ...init.headers },
-      body: body === undefined ? undefined : JSON.stringify(body),
+      headers: isJson ? { 'Content-Type': 'application/json', ...init.headers } : init.headers,
+      body: isJson ? JSON.stringify(body) : (body as FormData | undefined),
     })
   } catch {
     // fetch only rejects when the request never got an answer — DNS, CORS,
