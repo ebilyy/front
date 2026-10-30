@@ -1,4 +1,4 @@
-# Внутрішній сервер статики. HTTPS, стиснення і заголовки безпеки — на зовнішньому Caddy (schemka-infra).
+# Внутрішній сервер статики. HTTPS і стиснення — на проксі Coolify (Traefik).
 {
 	admin off
 	auto_https off
@@ -7,6 +7,16 @@
 
 :8080 {
 	root * /srv
+
+	# Traefik у Coolify сам заголовків безпеки не додає. HSTS з цієї відповіді
+	# браузер застосує до всього домену, тобто і до /api.
+	header {
+		Strict-Transport-Security "max-age=31536000"
+		X-Content-Type-Options "nosniff"
+		X-Frame-Options "DENY"
+		Referrer-Policy "strict-origin-when-cross-origin"
+		-Server
+	}
 
 	# Vite кладе в /assets файли з хешем у назві — їх можна кешувати назавжди.
 	# Решта (index.html) має перечитуватися, інакше після деплою браузер тягне старі хеші.
