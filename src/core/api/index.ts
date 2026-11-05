@@ -9,6 +9,22 @@ export { suppliersApi } from './suppliers'
 export type { CreateSupplierDto, Supplier, UpdateSupplierDto } from './suppliers'
 
 export {
+  importFieldsApi,
+  MAX_SHEET_ROW,
+  SUPPLIER_CONFIG_CURRENCIES,
+  supplierConfigsApi,
+} from './supplier-configs'
+export type {
+  CreateSupplierConfigDto,
+  ImportField,
+  ImportFieldKey,
+  SupplierConfig,
+  SupplierConfigColumn,
+  SupplierConfigCurrency,
+  UpdateSupplierConfigDto,
+} from './supplier-configs'
+
+export {
   filesApi,
   FILES_FIELD,
   MAX_FILE_SIZE_BYTES,
