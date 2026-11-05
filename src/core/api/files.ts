@@ -7,7 +7,10 @@ export const MAX_FILE_SIZE_MB = 10
 export const MAX_FILE_SIZE_BYTES = MAX_FILE_SIZE_MB * 1024 * 1024
 export const MAX_FILES_PER_REQUEST = 10
 
-/** A row of the `file_uploads` table. The object's storage key never leaves the API. */
+/**
+ * A row of the `file_uploads` table. The storage key and the content hash
+ * never leave the API — both are `select: false` on the backend entity.
+ */
 export interface FileUpload {
   id: number
   originalName: string
@@ -16,8 +19,6 @@ export interface FileUpload {
   /** As the browser reported it on upload — not sniffed from the content. */
   mimeType: string
   sizeBytes: number
-  /** SHA-256 of the content, hex. Equal hashes mean the same bytes. */
-  contentHash: string
   /** ISO timestamps — the API sends strings, not `Date`. */
   createdAt: string
   updatedAt: string

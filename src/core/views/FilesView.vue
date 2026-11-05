@@ -14,7 +14,6 @@ const { items, total, page, limit, loading, error } = storeToRefs(store)
 const headers = [
   { title: 'Назва', key: 'originalName', sortable: false },
   { title: 'Розмір', key: 'sizeBytes', align: 'end' as const, width: 120, sortable: false },
-  { title: 'SHA-256', key: 'contentHash', width: 150, sortable: false },
   { title: 'Завантажено', key: 'createdAt', align: 'end' as const, width: 150, sortable: false },
 ]
 
@@ -122,12 +121,6 @@ onMounted(store.fetchAll)
 
     <template #[`item.sizeBytes`]="{ item }">
       <span class="text-no-wrap">{{ formatSize(item.sizeBytes) }}</span>
-    </template>
-
-    <template #[`item.contentHash`]="{ item }">
-      <code class="text-medium-emphasis" :title="item.contentHash">
-        {{ item.contentHash.slice(0, 12) }}
-      </code>
     </template>
 
     <template #[`item.createdAt`]="{ item }">
