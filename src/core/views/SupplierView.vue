@@ -14,6 +14,7 @@ import { EmptyState, PageHeader } from '@/core/components'
 import {
   SupplierConfigCard,
   SupplierConfigFormDialog,
+  SupplierConfigSampleDialog,
   SupplierFormDialog,
 } from '@/core/components/suppliers'
 
@@ -64,17 +65,23 @@ function onSaved(updated: Supplier) {
   snackbar.value = { open: true, text: `Постачальника «${updated.name}» оновлено` }
 }
 
+// Two ways to fill the same config: typing letters in the form, or pointing at
+// a sample file. Both take the same props and emit the same `saved`, so they
+// share the config being edited and the handler.
 const configFormOpen = ref(false)
+const configSampleOpen = ref(false)
 const editingConfig = ref<SupplierConfig | null>(null)
 
-function openCreateConfig() {
+function openCreateConfig(fromSample = false) {
   editingConfig.value = null
-  configFormOpen.value = true
+  if (fromSample) configSampleOpen.value = true
+  else configFormOpen.value = true
 }
 
-function openEditConfig(config: SupplierConfig) {
+function openEditConfig(config: SupplierConfig, fromSample = false) {
   editingConfig.value = config
-  configFormOpen.value = true
+  if (fromSample) configSampleOpen.value = true
+  else configFormOpen.value = true
 }
 
 // The saved row comes back whole, so it is spliced in rather than refetched.
@@ -151,20 +158,29 @@ function onConfigSaved(saved: SupplierConfig, isEdit: boolean) {
             З якого аркуша й рядка читати прайс і яка колонка файлу відповідає якому полю товару.
           </p>
         </div>
-        <v-btn
-          v-if="configs.length"
-          color="primary"
-          variant="flat"
-          prepend-icon="mdi-plus"
-          @click="openCreateConfig"
-        >
-          Додати конфіг
-        </v-btn>
+        <div v-if="configs.length" class="d-flex flex-wrap ga-2">
+          <v-btn variant="tonal" prepend-icon="mdi-plus" @click="openCreateConfig()">
+            Вручну
+          </v-btn>
+          <v-btn
+            color="primary"
+            variant="flat"
+            prepend-icon="mdi-file-table-outline"
+            @click="openCreateConfig(true)"
+          >
+            Із зразка файлу
+          </v-btn>
+        </div>
       </div>
 
       <v-row v-if="configs.length">
         <v-col v-for="config in configs" :key="config.id" cols="12" lg="6">
-          <SupplierConfigCard :config="config" :fields="fields" @edit="openEditConfig(config)" />
+          <SupplierConfigCard
+            :config="config"
+            :fields="fields"
+            @edit="openEditConfig(config)"
+            @edit-from-sample="openEditConfig(config, true)"
+          />
         </v-col>
       </v-row>
 
@@ -176,9 +192,19 @@ function onConfigSaved(saved: SupplierConfig, isEdit: boolean) {
           description="Конфіг описує, як читати прайс цього постачальника: аркуш, рядок заголовків і колонки для коду, назви та ціни."
         >
           <template #actions>
-            <v-btn color="primary" variant="flat" prepend-icon="mdi-plus" @click="openCreateConfig">
-              Додати конфіг
-            </v-btn>
+            <div class="d-flex flex-wrap justify-center ga-2">
+              <v-btn variant="tonal" prepend-icon="mdi-plus" @click="openCreateConfig()">
+                Вручну
+              </v-btn>
+              <v-btn
+                color="primary"
+                variant="flat"
+                prepend-icon="mdi-file-table-outline"
+                @click="openCreateConfig(true)"
+              >
+                Із зразка файлу
+              </v-btn>
+            </div>
           </template>
         </EmptyState>
       </v-card>
@@ -188,6 +214,14 @@ function onConfigSaved(saved: SupplierConfig, isEdit: boolean) {
 
     <SupplierConfigFormDialog
       v-model="configFormOpen"
+      :supplier-id="supplier.id"
+      :fields="fields"
+      :config="editingConfig"
+      @saved="onConfigSaved"
+    />
+
+    <SupplierConfigSampleDialog
+      v-model="configSampleOpen"
       :supplier-id="supplier.id"
       :fields="fields"
       :config="editingConfig"

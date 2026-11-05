@@ -10,7 +10,12 @@ const props = defineProps<{
   fields: ImportField[]
 }>()
 
-defineEmits<{ edit: [] }>()
+defineEmits<{
+  /** Open the config in the manual form. */
+  edit: []
+  /** Open it over a sample price list. */
+  editFromSample: []
+}>()
 
 interface MappingRow {
   key: string
@@ -74,11 +79,20 @@ const dateFormat = new Intl.DateTimeFormat('uk-UA', { dateStyle: 'short', timeSt
         />
         <StatusBadge v-else tone="success" label="Готовий" />
         <v-btn
-          icon="mdi-pencil-outline"
+          icon="mdi-file-table-outline"
           variant="text"
           size="small"
           class="ms-1"
-          aria-label="Редагувати конфіг"
+          aria-label="Редагувати за зразком файлу"
+          title="Редагувати за зразком файлу"
+          @click="$emit('editFromSample')"
+        />
+        <v-btn
+          icon="mdi-pencil-outline"
+          variant="text"
+          size="small"
+          aria-label="Редагувати вручну"
+          title="Редагувати вручну"
           @click="$emit('edit')"
         />
       </template>
