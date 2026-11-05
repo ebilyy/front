@@ -18,7 +18,7 @@ const headers = [
   { title: 'Email', key: 'email', sortable: false },
   { title: 'Опис', key: 'description', sortable: false },
   { title: 'Оновлено', key: 'updatedAt', align: 'end' as const, width: 150, sortable: false },
-  { title: '', key: 'actions', align: 'end' as const, width: 96, sortable: false },
+  { title: '', key: 'actions', align: 'end' as const, width: 136, sortable: false },
 ]
 
 const dateFormat = new Intl.DateTimeFormat('uk-UA', { dateStyle: 'short', timeStyle: 'short' })
@@ -105,6 +105,12 @@ onMounted(store.fetchAll)
     @update:page="store.goToPage"
     @update:items-per-page="store.setLimit"
   >
+    <template #[`item.name`]="{ item }">
+      <RouterLink :to="{ name: 'supplier', params: { id: item.id } }" class="supplier-link">
+        {{ item.name }}
+      </RouterLink>
+    </template>
+
     <template #[`item.description`]="{ item }">
       <span v-if="item.description" class="description">{{ item.description }}</span>
       <span v-else class="text-medium-emphasis">—</span>
@@ -116,6 +122,13 @@ onMounted(store.fetchAll)
 
     <template #[`item.actions`]="{ item }">
       <div class="d-flex justify-end ga-1">
+        <v-btn
+          icon="mdi-file-cog-outline"
+          variant="text"
+          size="small"
+          aria-label="Конфіги парсингу"
+          :to="{ name: 'supplier', params: { id: item.id } }"
+        />
         <v-btn
           icon="mdi-pencil-outline"
           variant="text"
@@ -160,6 +173,16 @@ onMounted(store.fetchAll)
 </template>
 
 <style scoped>
+.supplier-link {
+  color: rgb(var(--v-theme-primary));
+  font-weight: 500;
+  text-decoration: none;
+}
+
+.supplier-link:hover {
+  text-decoration: underline;
+}
+
 .description {
   display: -webkit-box;
   -webkit-box-orient: vertical;

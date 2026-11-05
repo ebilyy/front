@@ -40,8 +40,14 @@ const navItems: NavItem[] = [
 
 const breadcrumbs = computed<Crumb[]>(() => {
   const trail: Crumb[] = [{ title: 'Schemka', to: { name: 'dashboard' } }]
-  const title = route.meta.title
-  if (typeof title === 'string' && route.name !== 'dashboard') trail.push({ title })
+  if (route.name === 'dashboard') return trail
+
+  // `record.meta` is the record's own, unlike the merged `route.meta`, so a
+  // nested page yields its parent's title and then its own. Only the last
+  // crumb is unlinked, and only a parent record — no params — gets a link.
+  for (const record of route.matched) {
+    if (record.meta.title) trail.push({ title: record.meta.title, to: { path: record.path } })
+  }
   return trail
 })
 </script>

@@ -8,6 +8,15 @@ export type { Paginated, PaginationMeta, PaginationQuery } from './types'
 export { suppliersApi } from './suppliers'
 export type { CreateSupplierDto, Supplier, UpdateSupplierDto } from './suppliers'
 
+export { importFieldsApi, supplierConfigsApi } from './supplier-configs'
+export type {
+  ImportField,
+  ImportFieldKey,
+  SupplierConfig,
+  SupplierConfigColumn,
+  SupplierConfigCurrency,
+} from './supplier-configs'
+
 export {
   filesApi,
   FILES_FIELD,
