@@ -23,7 +23,11 @@ export interface ImportField {
   description: string
 }
 
-export type SupplierConfigCurrency = 'UAH' | 'USD'
+export const SUPPLIER_CONFIG_CURRENCIES = ['UAH', 'USD'] as const
+export type SupplierConfigCurrency = (typeof SUPPLIER_CONFIG_CURRENCIES)[number]
+
+/** The backend stops at the last row of an xlsx sheet. */
+export const MAX_SHEET_ROW = 1_048_576
 
 /** One "file column → import field" pair from the config's `columns` jsonb. */
 export interface SupplierConfigColumn {
@@ -51,11 +55,31 @@ export interface SupplierConfig {
   deletedAt: string | null
 }
 
+export interface CreateSupplierConfigDto {
+  name: string
+  /** `null` or omitted — the workbook's first sheet. */
+  sheetName?: string | null
+  headerRow: number
+  currency: SupplierConfigCurrency
+  /**
+   * Every required registry field must be mapped; each field and each column
+   * at most once. The backend uppercases the letters and trims the texts.
+   */
+  columns: SupplierConfigColumn[]
+}
+
+/** Any non-empty subset; `columns`, when sent, replaces the array as a whole. */
+export type UpdateSupplierConfigDto = Partial<CreateSupplierConfigDto>
+
 export const supplierConfigsApi = {
   /** Ordered by id. Not paginated: a supplier has a handful of configs at most. */
   list: (supplierId: number) => http.get<SupplierConfig[]>(`/suppliers/${supplierId}/configs`),
   get: (supplierId: number, id: number) =>
     http.get<SupplierConfig>(`/suppliers/${supplierId}/configs/${id}`),
+  create: (supplierId: number, dto: CreateSupplierConfigDto) =>
+    http.post<SupplierConfig>(`/suppliers/${supplierId}/configs`, dto),
+  update: (supplierId: number, id: number, dto: UpdateSupplierConfigDto) =>
+    http.patch<SupplierConfig>(`/suppliers/${supplierId}/configs/${id}`, dto),
 }
 
 export const importFieldsApi = {

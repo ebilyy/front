@@ -10,6 +10,8 @@ const props = defineProps<{
   fields: ImportField[]
 }>()
 
+defineEmits<{ edit: [] }>()
+
 interface MappingRow {
   key: string
   label: string
@@ -71,6 +73,14 @@ const dateFormat = new Intl.DateTimeFormat('uk-UA', { dateStyle: 'short', timeSt
           :label="`Не задано: ${missingRequired.map((row) => row.label).join(', ')}`"
         />
         <StatusBadge v-else tone="success" label="Готовий" />
+        <v-btn
+          icon="mdi-pencil-outline"
+          variant="text"
+          size="small"
+          class="ms-1"
+          aria-label="Редагувати конфіг"
+          @click="$emit('edit')"
+        />
       </template>
     </v-card-item>
 

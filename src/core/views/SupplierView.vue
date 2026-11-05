@@ -11,7 +11,11 @@ import {
   type SupplierConfig,
 } from '@/core/api'
 import { EmptyState, PageHeader } from '@/core/components'
-import { SupplierConfigCard, SupplierFormDialog } from '@/core/components/suppliers'
+import {
+  SupplierConfigCard,
+  SupplierConfigFormDialog,
+  SupplierFormDialog,
+} from '@/core/components/suppliers'
 
 const props = defineProps<{ id: number }>()
 
@@ -58,6 +62,33 @@ const snackbar = ref({ open: false, text: '' })
 function onSaved(updated: Supplier) {
   supplier.value = updated
   snackbar.value = { open: true, text: `Постачальника «${updated.name}» оновлено` }
+}
+
+const configFormOpen = ref(false)
+const editingConfig = ref<SupplierConfig | null>(null)
+
+function openCreateConfig() {
+  editingConfig.value = null
+  configFormOpen.value = true
+}
+
+function openEditConfig(config: SupplierConfig) {
+  editingConfig.value = config
+  configFormOpen.value = true
+}
+
+// The saved row comes back whole, so it is spliced in rather than refetched.
+function onConfigSaved(saved: SupplierConfig, isEdit: boolean) {
+  if (isEdit) {
+    configs.value = configs.value.map((config) => (config.id === saved.id ? saved : config))
+  } else {
+    configs.value = [...configs.value, saved]
+  }
+
+  snackbar.value = {
+    open: true,
+    text: isEdit ? `Конфіг «${saved.name}» оновлено` : `Конфіг «${saved.name}» створено`,
+  }
 }
 </script>
 
@@ -108,19 +139,32 @@ function onSaved(updated: Supplier) {
     </PageHeader>
 
     <section aria-labelledby="configs-title">
-      <div class="d-flex align-baseline ga-2 mb-1">
-        <h2 id="configs-title" class="text-h6">Конфіги парсингу</h2>
-        <span v-if="configs.length" class="text-body-2 text-medium-emphasis">
-          {{ configs.length }}
-        </span>
+      <div class="d-flex flex-wrap align-start justify-space-between ga-4 mb-4">
+        <div>
+          <div class="d-flex align-baseline ga-2 mb-1">
+            <h2 id="configs-title" class="text-h6">Конфіги парсингу</h2>
+            <span v-if="configs.length" class="text-body-2 text-medium-emphasis">
+              {{ configs.length }}
+            </span>
+          </div>
+          <p class="text-body-2 text-medium-emphasis">
+            З якого аркуша й рядка читати прайс і яка колонка файлу відповідає якому полю товару.
+          </p>
+        </div>
+        <v-btn
+          v-if="configs.length"
+          color="primary"
+          variant="flat"
+          prepend-icon="mdi-plus"
+          @click="openCreateConfig"
+        >
+          Додати конфіг
+        </v-btn>
       </div>
-      <p class="text-body-2 text-medium-emphasis mb-4">
-        З якого аркуша й рядка читати прайс і яка колонка файлу відповідає якому полю товару.
-      </p>
 
       <v-row v-if="configs.length">
         <v-col v-for="config in configs" :key="config.id" cols="12" lg="6">
-          <SupplierConfigCard :config="config" :fields="fields" />
+          <SupplierConfigCard :config="config" :fields="fields" @edit="openEditConfig(config)" />
         </v-col>
       </v-row>
 
@@ -130,11 +174,25 @@ function onSaved(updated: Supplier) {
           icon="mdi-file-cog-outline"
           title="Конфігів ще немає"
           description="Конфіг описує, як читати прайс цього постачальника: аркуш, рядок заголовків і колонки для коду, назви та ціни."
-        />
+        >
+          <template #actions>
+            <v-btn color="primary" variant="flat" prepend-icon="mdi-plus" @click="openCreateConfig">
+              Додати конфіг
+            </v-btn>
+          </template>
+        </EmptyState>
       </v-card>
     </section>
 
     <SupplierFormDialog v-model="formOpen" :supplier="supplier" @saved="onSaved" />
+
+    <SupplierConfigFormDialog
+      v-model="configFormOpen"
+      :supplier-id="supplier.id"
+      :fields="fields"
+      :config="editingConfig"
+      @saved="onConfigSaved"
+    />
 
     <v-snackbar v-model="snackbar.open" color="success" timeout="4000">
       {{ snackbar.text }}
